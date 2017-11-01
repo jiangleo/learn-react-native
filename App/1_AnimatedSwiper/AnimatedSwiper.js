@@ -55,12 +55,10 @@ export default class SimpleSwiper extends PureComponent {
 
         this.state = {
             layoutWidth: props.initialWidth,
-            positionAnimated: new Animated.Value(props.index)
+            positionAnimated: new Animated.Value(- props.index * props.initialWidth)
         };
     }
 
-    componentDidMount() {
-    }
 
     componentDidUpdate(){
         this.scrollTo(this.props.index)
@@ -68,7 +66,7 @@ export default class SimpleSwiper extends PureComponent {
 
     scrollTo = ( toIndex ) => {
         Animated.spring(this.state.positionAnimated, {
-            toValue: toIndex,
+            toValue: - toIndex * this.state.layoutWidth,
             friction: 12,
             tension: 50,
         }).start()
@@ -91,6 +89,8 @@ export default class SimpleSwiper extends PureComponent {
         this.setState({
             layoutWidth: nativeEvent.layout.width,
         })
+
+        this.state.positionAnimated.setValue( - this.props.index * nativeEvent.layout.width)
     }
 
 
@@ -103,7 +103,7 @@ export default class SimpleSwiper extends PureComponent {
                 style={{
                     width: layoutWidth,
                     transform: [{
-                        translateX: Animated.multiply(this.state.positionAnimated, -layoutWidth),
+                        translateX:  this.state.positionAnimated,
                     }],
                 }}
                 key={index}
