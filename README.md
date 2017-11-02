@@ -25,7 +25,6 @@
 轮播图的主要思想是，每次只显示一个个项目面，超出容器个项目面被隐藏，思路图如下：
 
 ![](https://pic4.zhimg.com/50/v2-3486914b69a958eec8f30192452defab_720x4096.jpg)
-
 [图片来源](https://zhuanlan.zhihu.com/p/29034015)
 
 为了达到复用的效果，还需要将组件调用方和组件本身分离。即组件本身只有一个，但是可以被多次调用。
@@ -127,6 +126,7 @@ render() {
 
  # | Animated | state
 声明 | `this.animKey = animValue}` | `this.state={stateKey: stateValue}`
+--| --| --
 赋值 | `<Animated.View props={this.animKey}>` | `<View props={this.state.stateKey}>`
 改变状态 | this.animKey.setValue(newAnimValue)  | `this.setState({stateKey: newStateValue})`
 改变状态_动画曲线形式 |   `Animated.spring(this.animKey, {toValue: newAnimValue}).toStart()`  | 无
@@ -192,6 +192,7 @@ React Native 的手势事件类似于 Web，但 React Native 的手势事件更�
 两者相似点有：
 
  # | React Native | Web
+--|--|--
 开始触碰 | onPanResponderGrant | touchstart
 开始移动 | onResponderMove | touchmove
 结束触碰 | onResponderRelease  | touchend
@@ -203,6 +204,7 @@ React Native 的手势事件类似于 Web，但 React Native 的手势事件更�
 在 React Native 手势接口设计上，大家可以先思考一个问题。因为 React Native 允许两个元素同时监听手势事件，如果两个元素都监听了手势，那么 React Native 应该响应那个元素呢？在 React Native 中设计了，成为响应者 `Responder` 的概念。大概可以描述为：如果没有响应者，任何元素都可以成为响应者；如果有元素是响应者，必须当前响应元素同意不再继续成为响应者后，其他元素才能变成响应者。总而言之，React Native 通过元素间的谈判，保障了手势响应者只有一个。谈判接口主要有：
 
  # | React Native | Web
+--|--|--
 开始触碰，是否成为响应者 | onStartShouldSetPanResponder => boolean | 无
 开始移动，是否成为响应者 | onMoveShouldSetPanResponder => boolean | 无
 有其他响应者，是否释放响应权 | onPanResponderTerminationRequest => boolean | 无
@@ -278,11 +280,5 @@ responder = PanResponder.create({
 大家可以参考代码中的 SwiperAndroid 进行完成。
 
 最后附上地址： https://github.com/jiangleo/learn-react-native
-
-
-
-
-
-
 
 
